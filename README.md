@@ -30,9 +30,9 @@ This is a DevOps curriculum specifically designed for interns, helping you gain 
 - [Kubernetes Deployment](./docs/03-containers/04-kubernetes-deployment.md)
 
 ### 4. Infrastructure as Code
-- [Terraform Basics](./docs/04-iac/01-terraform-basics.md)
-- [Ansible Basics](./docs/04-iac/02-ansible-basics.md)
-- [Cloud Providers (AWS/GCP/Azure)](./docs/04-iac/03-cloud-providers.md)
+- [Terraform Basics](./docs/04-infrastructure-as-code/01-terraform-basics.md)
+- [Ansible Basics](./docs/04-infrastructure-as-code/02-ansible-basics.md)
+- [Cloud Providers (AWS/GCP/Azure)](./docs/04-infrastructure-as-code/03-cloud-providers.md)
 
 ### 5. Monitoring & Logging
 - [Prometheus & Grafana](./docs/05-monitoring/01-prometheus-grafana.md)
@@ -45,14 +45,15 @@ This is a DevOps curriculum specifically designed for interns, helping you gain 
 - [Infrastructure Security](./docs/06-security/03-infrastructure-security.md)
 
 ## Hands-on Projects
-- [Project 1: Building CI/CD Pipeline](./projects/01-cicd-pipeline.md)
-- [Project 2: Containerizing Applications](./projects/02-containerize-app.md)
-- [Project 3: Kubernetes Deployment](./projects/03-k8s-deployment.md)
+- [Project 1: CI/CD Pipeline](./projects/01-cicd-pipeline/README.md)
+- [Project 2: Container Orchestration](./projects/02-container-orchestration/README.md)
+- [Project 3: Infrastructure as Code](./projects/03-infrastructure-as-code/README.md)
+- [Project 4: Monitoring & Logging](./projects/04-monitoring-logging/README.md)
 
 ## References
-- [Books and Courses](./references/books-courses.md)
-- [Blogs and Websites](./references/blogs-websites.md)
-- [Tools and Resources](./references/tools-resources.md)
+- [Books and Courses](./docs/references/books-courses.md)
+- [Blogs and Websites](./docs/references/blogs-websites.md)
+- [Tools and Resources](./docs/references/tools-resources.md)
 
 ## Contributing
 We welcome contributions from the community. If you want to contribute, please:
