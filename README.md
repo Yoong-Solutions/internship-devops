@@ -1,67 +1,91 @@
 # DevOps Internship Curriculum
 
 ## Introduction
-This is a DevOps curriculum specifically designed for interns, helping you gain fundamental knowledge and hands-on experience in DevOps. This curriculum will guide you from basic concepts to common tools and practices in the industry.
-
-## Objectives
-- Understand fundamental DevOps concepts
-- Master common tools and technologies
-- Be able to implement and deploy CI/CD pipelines
-- Understand containers and orchestration
-- Gain knowledge about monitoring and logging
+This is a DevOps internship curriculum designed as a series of small POCs (Proof of Concept) with inheritance across topics. Each POC builds upon knowledge from previous POCs, helping learners understand and apply knowledge systematically.
 
 ## Curriculum Structure
 
-### 1. Fundamentals
-- [Introduction to DevOps](./docs/01-fundamentals/01-introduction.md)
-- [Software Development Lifecycle](./docs/01-fundamentals/02-software-lifecycle.md)
-- [DevOps Principles and Practices](./docs/01-fundamentals/03-principles-practices.md)
+### 1. [Linux and Shell Scripting Basics](01-linux-basics/README.md)
+- **POC 1.1**: Basic Linux Installation and Configuration
+  - Ubuntu Server Installation
+  - Basic Network Configuration
+  - User and Permission Management
+- **POC 1.2**: Shell Scripting Basics
+  - Writing Scripts for Simple Task Automation
+  - File and Directory Handling
+  - Task Scheduling with Cron
 
-### 2. Version Control & CI/CD
-- [Git Basics](./docs/02-version-control/01-git-basics.md)
-- [GitHub/GitLab Workflow](./docs/02-version-control/02-git-workflow.md)
-- [CI/CD Pipeline](./docs/02-version-control/03-cicd-pipeline.md)
-- [Jenkins/GitHub Actions](./docs/02-version-control/04-ci-tools.md)
+### 2. [Containers and Docker](02-docker/README.md)
+- **POC 2.1**: Docker Basics
+  - Docker Installation
+  - Container Creation and Management
+  - Basic Docker Image Building
+- **POC 2.2**: Docker Compose
+  - Multi-container Application Creation
+  - Network and Volume Management
+  - Application Scaling
 
-### 3. Container & Container Orchestration
-- [Docker Basics](./docs/03-containers/01-docker-basics.md)
-- [Docker Compose](./docs/03-containers/02-docker-compose.md)
-- [Kubernetes Basics](./docs/03-containers/03-kubernetes-basics.md)
-- [Kubernetes Deployment](./docs/03-containers/04-kubernetes-deployment.md)
+### 3. [CI/CD with GitHub Actions](03-cicd/README.md)
+- **POC 3.1**: Basic CI Pipeline
+  - GitHub Actions Configuration
+  - Automated Build and Test
+  - Artifact Creation
+- **POC 3.2**: CD Pipeline
+  - Automated Staging Deployment
+  - Secret and Environment Management
+  - Rollback Strategy
 
-### 4. Infrastructure as Code
-- [Terraform Basics](./docs/04-infrastructure-as-code/01-terraform-basics.md)
-- [Ansible Basics](./docs/04-infrastructure-as-code/02-ansible-basics.md)
-- [Cloud Providers (AWS/GCP/Azure)](./docs/04-infrastructure-as-code/03-cloud-providers.md)
+### 4. [Infrastructure as Code with Terraform](04-terraform/README.md)
+- **POC 4.1**: Terraform Basics
+  - Terraform Installation and Configuration
+  - Basic Resource Creation
+  - State Management
+- **POC 4.2**: Advanced Terraform
+  - Module Development
+  - Remote State
+  - Workspace Management
 
-### 5. Monitoring & Logging
-- [Prometheus & Grafana](./docs/05-monitoring/01-prometheus-grafana.md)
-- [ELK Stack](./docs/05-monitoring/02-elk-stack.md)
-- [Alerting & Dashboards](./docs/05-monitoring/03-alerting-dashboards.md)
+### 5. [Kubernetes](05-kubernetes/README.md)
+- **POC 5.1**: Kubernetes Basics
+  - Minikube Installation
+  - Simple Application Deployment
+  - Pod and Service Management
+- **POC 5.2**: Advanced Kubernetes
+  - Deployment Strategies
+  - ConfigMap and Secret
+  - Ingress and Service Mesh
 
-### 6. Security & Best Practices
-- [DevSecOps Basics](./docs/06-security/01-devsecops-basics.md)
-- [Container Security](./docs/06-security/02-container-security.md)
-- [Infrastructure Security](./docs/06-security/03-infrastructure-security.md)
+### 6. [Monitoring and Logging](06-monitoring/README.md)
+- **POC 6.1**: Basic Monitoring
+  - Prometheus Installation
+  - Grafana Configuration
+  - Basic Dashboard Creation
+- **POC 6.2**: Logging
+  - ELK Stack Installation
+  - Log Collection and Analysis
+  - Alert Creation
 
-## Hands-on Projects
-- [Project 1: CI/CD Pipeline](./projects/01-cicd-pipeline/README.md)
-- [Project 2: Container Orchestration](./projects/02-container-orchestration/README.md)
-- [Project 3: Infrastructure as Code](./projects/03-infrastructure-as-code/README.md)
-- [Project 4: Monitoring & Logging](./projects/04-monitoring-logging/README.md)
+## How to Use This Curriculum
+1. Each POC is designed to be completed in 1-2 days
+2. POCs are arranged in order from basic to advanced
+3. Each POC includes:
+   - Learning Objectives
+   - Prerequisites
+   - Detailed Instructions
+   - Practice Exercises
+   - Reference Materials
 
-## References
-- [Books and Courses](./docs/references/books-courses.md)
-- [Blogs and Websites](./docs/references/blogs-websites.md)
-- [Tools and Resources](./docs/references/tools-resources.md)
+## System Requirements
+- Computer with minimum 8GB RAM
+- At least 50GB free disk space
+- Stable internet connection
+- Admin privileges on the computer
+
+## Additional Resources
+- [Docker Documentation](https://docs.docker.com/)
+- [Kubernetes Documentation](https://kubernetes.io/docs/)
+- [Terraform Documentation](https://www.terraform.io/docs/)
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)
 
 ## Contributing
-We welcome contributions from the community. If you want to contribute, please:
-1. Fork the repository
-2. Create a new branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-MIT License - See [LICENSE](LICENSE) file for details. 
+Contributions to improve the curriculum are welcome. Please create an issue or pull request to contribute. 
