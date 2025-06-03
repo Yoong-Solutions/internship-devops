@@ -26,7 +26,6 @@ App-Glitchbox is a chaos engineering application that simulates various system f
 - Chaos Tool: ChaosBlade v1.7.4
 - Container Management: Docker Compose
 - Monitoring: Prometheus + Grafana
-- CI/CD: GitHub Actions
 
 ### System Requirements
 - Linux VM (Ubuntu 22.04 LTS recommended)
@@ -78,29 +77,7 @@ Deploy and configure the chaos engineering application with the following compon
   - Network issues
   - Disk space
 
-### Exercise 2: CI/CD Pipeline with GitHub Actions
-Implement a CI/CD pipeline with the following stages:
-
-#### Build Stage
-- Checkout code
-- Build Docker image
-- Run security scan (Trivy)
-- Test container health
-- Push to Docker Hub
-
-#### Deploy Stage
-- Deploy to staging VM
-- Run smoke tests
-- Verify monitoring
-- Automated rollback
-
-#### Security
-- Image vulnerability scanning
-- Secret management
-- Access control
-- Security best practices
-
-### Exercise 3: Container Monitoring System
+### Exercise 2: Container Monitoring System
 Set up a comprehensive monitoring solution:
 
 #### Metrics Collection
@@ -174,14 +151,7 @@ Set up a comprehensive monitoring solution:
    - Prometheus configuration
    - Grafana dashboards
    - Alert rules
-3. CI/CD implementation (10%)
-   - GitHub Actions workflow
-   - Automated testing
-   - Deployment process
-4. Chaos testing (10%)
-   - Failure simulation
-   - System recovery
-   - Monitoring effectiveness
+
 
 ### Documentation Requirements (30%)
 1. Architecture diagrams
