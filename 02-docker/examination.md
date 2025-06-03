@@ -7,87 +7,242 @@ This POC builds upon Linux basics (POC 1.1) and will be used as a foundation for
 - Kubernetes container orchestration (POC 5.1)
 - Container monitoring and logging (POC 6.1)
 
+## Project Overview: App-Glitchbox
+The main project is to deploy a containerized web application (app-glitchbox) on a Linux VM with monitoring, alerting, and CI/CD integration.
+
+### App-Glitchbox Description
+App-Glitchbox is a chaos engineering application that simulates various system failures and issues. It uses ChaosBlade to create controlled chaos in the system, helping to test system resilience and monitoring capabilities.
+
+#### Core Features
+- Random CPU load spikes (90% for 60s)
+- Memory pressure simulation (80% for 60s)
+- Application crashes
+- Network latency injection (3000ms)
+- Disk space filling (512MB)
+- Application hangs (10 minutes)
+
+#### Technical Stack
+- Base Image: Ubuntu 22.04
+- Chaos Tool: ChaosBlade v1.7.4
+- Container Management: Docker Compose
+- Monitoring: Prometheus + Grafana
+- CI/CD: GitHub Actions
+
+### System Requirements
+- Linux VM (Ubuntu 22.04 LTS recommended)
+- Docker Engine
+- Docker Compose
+- Git
+- GitHub account for CI/CD
+- Docker Hub account for image registry
+- Minimum 2GB RAM
+- 20GB free disk space
+
 ## Practice Exercises
 
-### Exercise 1: Multi-container Web Application
-Create a containerized web application that extends the Linux system administration skills from POC 1.1:
-- Frontend container (React/Node.js)
-- Backend container (Python/Java)
-- Database container (PostgreSQL/MySQL)
-- Nginx reverse proxy
-- Docker Compose configuration
-- Environment variable management
-- Volume management for persistent data
+### Exercise 1: Multi-container Web Application (App-Glitchbox)
+Deploy and configure the chaos engineering application with the following components:
 
-This application will be used as a base for:
-- CI/CD pipeline testing in POC 3.1
-- Infrastructure deployment in POC 4.1
-- Kubernetes deployment in POC 5.1
-- Monitoring implementation in POC 6.1
+#### Main Application Container
+- Ubuntu 22.04 base image
+- ChaosBlade installation
+- Custom entrypoint script
+- Health check configuration
+- Environment variables
+- Restart policies
 
-### Exercise 2: CI/CD Pipeline for Docker
-Implement a CI/CD pipeline that prepares for POC 3.1:
-- Builds Docker images automatically
-- Runs tests in containers
-- Pushes images to Docker Hub
-- Deploys to staging environment
-- Implements rollback strategy
-- Includes security scanning
-- Manages secrets properly
+#### Monitoring Stack
+- Prometheus container
+  - Custom metrics collection
+  - Alert rules configuration
+  - Data retention policies
+- Grafana container
+  - Custom dashboards
+  - Alert notifications
+  - Data visualization
+- Node Exporter
+  - System metrics
+  - Container metrics
+  - Resource usage
 
-This pipeline will be extended in:
-- GitHub Actions workflows (POC 3.1)
-- Infrastructure deployment (POC 4.1)
-- Kubernetes deployment (POC 5.1)
-- Monitoring deployment (POC 6.1)
+#### Alerting System
+- AlertManager configuration
+- Notification channels:
+  - Email
+  - Slack
+  - PagerDuty
+- Alert rules for:
+  - CPU spikes
+  - Memory pressure
+  - Container crashes
+  - Network issues
+  - Disk space
+
+### Exercise 2: CI/CD Pipeline with GitHub Actions
+Implement a CI/CD pipeline with the following stages:
+
+#### Build Stage
+- Checkout code
+- Build Docker image
+- Run security scan (Trivy)
+- Test container health
+- Push to Docker Hub
+
+#### Deploy Stage
+- Deploy to staging VM
+- Run smoke tests
+- Verify monitoring
+- Automated rollback
+
+#### Security
+- Image vulnerability scanning
+- Secret management
+- Access control
+- Security best practices
 
 ### Exercise 3: Container Monitoring System
-Set up a monitoring system that builds upon POC 1.1 monitoring:
-- Tracks container resource usage
-- Monitors container health
-- Implements logging solution
-- Sets up alerts for issues
-- Creates Grafana dashboards
-- Implements log rotation
-- Handles container crashes
+Set up a comprehensive monitoring solution:
 
-This system will be expanded in:
-- CI/CD monitoring (POC 3.2)
-- Infrastructure monitoring (POC 4.2)
-- Kubernetes monitoring (POC 5.2)
-- Comprehensive monitoring (POC 6.2)
+#### Metrics Collection
+- Prometheus configuration
+  - Custom metrics
+  - Scrape intervals
+  - Retention policies
+- Node Exporter setup
+  - System metrics
+  - Container metrics
+- Custom metrics for:
+  - Chaos events
+  - System health
+  - Resource usage
+
+#### Visualization
+- Grafana dashboards
+  - System overview
+  - Chaos events
+  - Resource usage
+  - Alert status
+- Custom panels for:
+  - CPU/Memory usage
+  - Network latency
+  - Disk space
+  - Container status
+
+#### Alerting
+- AlertManager setup
+- Notification channels
+- Alert rules for:
+  - High CPU usage (>80%)
+  - Memory pressure (>70%)
+  - Container crashes
+  - Network latency (>2000ms)
+  - Disk space (<20%)
+
+#### Logging
+- Log aggregation
+- Log rotation
+- Error tracking
+- Audit logging
 
 ## Assessment Criteria
 
-### Knowledge Assessment
+### Knowledge Assessment (30%)
 1. Docker concepts understanding
+   - Container lifecycle
+   - Image management
+   - Network configuration
+   - Volume management
 2. Container orchestration knowledge
+   - Service discovery
+   - Load balancing
+   - Health checks
 3. Docker Compose proficiency
+   - Multi-container setup
+   - Environment management
+   - Network configuration
 4. Security best practices
+   - Image security
+   - Network security
+   - Secret management
 
-### Practical Assessment
-1. Application architecture
-2. Container configuration
-3. CI/CD implementation
-4. Monitoring setup
+### Practical Assessment (40%)
+1. Application deployment (10%)
+   - Container configuration
+   - Environment setup
+   - Health checks
+2. Monitoring setup (10%)
+   - Prometheus configuration
+   - Grafana dashboards
+   - Alert rules
+3. CI/CD implementation (10%)
+   - GitHub Actions workflow
+   - Automated testing
+   - Deployment process
+4. Chaos testing (10%)
+   - Failure simulation
+   - System recovery
+   - Monitoring effectiveness
 
-### Documentation Requirements
+### Documentation Requirements (30%)
 1. Architecture diagrams
+   - System overview
+   - Component interaction
+   - Network topology
 2. Configuration documentation
+   - Environment setup
+   - Service configuration
+   - Security settings
 3. Deployment procedures
+   - Installation steps
+   - Configuration steps
+   - Verification steps
 4. Troubleshooting guides
-5. Integration points with other POCs
+   - Common issues
+   - Debug procedures
+   - Recovery steps
+5. Integration points
+   - Previous POC integration
+   - Future POC preparation
 
 ## Submission Guidelines
-1. All Dockerfiles must be well-documented
-2. Include setup instructions
-3. Provide test cases
-4. Document any assumptions made
-5. Document how the solution integrates with previous and future POCs
+1. All Dockerfiles must be well-documented with:
+   - Base image justification
+   - Layer optimization
+   - Security considerations
+2. Include setup instructions:
+   - Prerequisites
+   - Installation steps
+   - Configuration steps
+3. Provide test cases:
+   - Chaos scenarios
+   - Recovery procedures
+   - Monitoring verification
+4. Document assumptions:
+   - System requirements
+   - Network requirements
+   - Security requirements
+5. Document integration points:
+   - Previous POC connections
+   - Future POC preparations
 
 ## Grading Rubric
-- Application Functionality: 30%
-- Container Configuration: 20%
+- Application Deployment: 30%
+  - Container configuration
+  - Environment setup
+  - Health monitoring
+- Monitoring Setup: 20%
+  - Metrics collection
+  - Alert configuration
+  - Dashboard design
 - CI/CD Implementation: 20%
+  - Pipeline automation
+  - Testing coverage
+  - Deployment reliability
 - Documentation: 15%
-- Security Implementation: 15% 
+  - Technical accuracy
+  - Completeness
+  - Clarity
+- Security Implementation: 15%
+  - Image security
+  - Network security
+  - Access control 
