@@ -28,10 +28,6 @@ Project [Project Name] is implemented to achieve [main project objective]. This 
 - "Automatically build Docker image and push to Docker Hub when merging to main branch"
 - "Monitor backend application errors and send alerts via Slack"
 
-#### Secondary Requirements:
-- [List secondary requirements]
-- [Example: logging, monitoring, security]
-
 ### 2.2. Technical Requirements
 
 #### Environment:
