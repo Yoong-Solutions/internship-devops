@@ -64,15 +64,28 @@ The solution is designed based on [microservices/monolith] architecture with aut
 <!-- Use Mermaid diagrams for better visualization -->
 ```mermaid
 graph TD
-    A[Developer] --> B[Git Repository]
-    B --> C[CI/CD Pipeline]
-    C --> D[Container Registry]
-    D --> E[Deployment Environment]
-    
-    A1[Code Push] --> B1[Trigger Pipeline]
-    B1 --> C1[Build & Test]
-    C1 --> D1[Push Image]
-    D1 --> E1[Deploy Application]
+subgraph AWS Cloud
+direction TB
+VPC[VPC]
+EC2[EC2 - DataSync Agent]
+VGW[AWS Virtual Private Gateway]
+S3[(Amazon S3 Bucket)]
+VPC --> EC2
+VPC --> VGW
+EC2 -->|Port 443| S3
+end
+
+subgraph VPN Tunnel
+VGW <---> VPN[Site-to-Site VPN Tunnel]
+end
+
+subgraph On-Premises
+direction TB
+OnPremLAN[On-Prem Network]
+FileServer[NFS/SMB Server]
+OnPremLAN --> FileServer
+VPN --> OnPremLAN
+end
 ```
 
 *Priority: Use Mermaid diagrams
