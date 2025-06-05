@@ -1,110 +1,60 @@
-# Git and Git Flow in DevOps
+# Git and Git Flow for DevOps
 
 ## Table of Contents
-1. [Git Fundamentals](#1-git-fundamentals)
-2. [Common Git Workflows](#2-common-git-workflows)
+1. [Git Essentials for DevOps](#1-git-essentials-for-devops)
+2. [Git Workflows](#2-git-workflows)
 3. [Git Flow in DevOps](#3-git-flow-in-devops)
-4. [Best Practices](#4-best-practices)
-5. [Advanced Git Techniques](#5-advanced-git-techniques)
-6. [Troubleshooting](#6-troubleshooting)
+4. [DevOps Best Practices](#4-devops-best-practices)
+5. [Troubleshooting](#5-troubleshooting)
 
-## 1. Git Fundamentals
+## 1. Git Essentials for DevOps
 
-### 1.1. What is Git?
-Git is a distributed version control system that tracks changes in source code during software development. It's designed for coordinating work among programmers, but it can be used to track changes in any set of files.
+### 1.1. Core Git Commands for DevOps
 
-### 1.2. Basic Git Commands
-
-#### Repository Initialization
 ```bash
-# Initialize a new Git repository
+# Repository operations
+git clone <repo-url>
 git init
 
-# Clone an existing repository
-git clone <repository-url>
-git clone https://github.com/user/repo.git
-```
-
-#### Basic Operations
-```bash
-# Check repository status
+# Daily workflow
 git status
+git add .
+git commit -m "message"
+git push origin <branch>
+git pull origin <branch>
 
-# Add files to staging area
-git add <file-name>
-git add .                    # Add all files
-git add *.js                 # Add all JavaScript files
+# Branch management
+git checkout -b <branch-name>
+git merge <branch-name>
+git branch -d <branch-name>
 
-# Commit changes
-git commit -m "Commit message"
-git commit -am "Add and commit in one step"
-
-# View commit history
-git log
-git log --oneline           # Compact view
-git log --graph --oneline   # Graph view
+# Remote operations
+git remote add origin <url>
+git push -u origin main
+git fetch origin
 ```
 
-#### Branch Operations
-```bash
-# List branches
-git branch                  # Local branches
-git branch -r              # Remote branches
-git branch -a              # All branches
-
-# Create and switch branches
-git branch <branch-name>
-git checkout <branch-name>
-git checkout -b <branch-name>  # Create and switch
-
-# Modern syntax (Git 2.23+)
-git switch <branch-name>
-git switch -c <branch-name>    # Create and switch
-
-# Delete branches
-git branch -d <branch-name>    # Safe delete
-git branch -D <branch-name>    # Force delete
-```
-
-#### Remote Operations
-```bash
-# Add remote repository
-git remote add origin <repository-url>
-
-# Push changes
-git push origin <branch-name>
-git push -u origin <branch-name>  # Set upstream
-
-# Pull changes
-git pull origin <branch-name>
-git fetch origin               # Fetch without merge
-
-# View remotes
-git remote -v
-```
-
-### 1.3. Git Architecture
+### 1.2. Git Architecture for DevOps
 
 ```mermaid
 graph TD
     A[Working Directory] --> B[Staging Area]
     B --> C[Local Repository]
     C --> D[Remote Repository]
+    D --> E[CI/CD Pipeline]
+    E --> F[Deployment]
     
     A -->|git add| B
     B -->|git commit| C
     C -->|git push| D
-    D -->|git pull/fetch| C
-    C -->|git checkout| A
+    D -->|trigger| E
+    E -->|deploy| F
 ```
 
-## 2. Common Git Workflows
+## 2. Git Workflows
 
-### 2.1. Workflow Overview and Comparison
+### 2.1. Workflow Comparison for DevOps
 
-Git workflows define how teams collaborate and manage code changes. The choice depends on team size, release frequency, and deployment strategy.
-
-#### Workflow Comparison Table:
 | Workflow | Complexity | Team Size | Release Frequency | CI/CD | Best For |
 |----------|------------|-----------|-------------------|-------|----------|
 | Centralized | Low | 1-3 | Any | Basic | Small projects, learning |
@@ -112,93 +62,9 @@ Git workflows define how teams collaborate and manage code changes. The choice d
 | Git Flow | High | 5+ | Monthly/Quarterly | Advanced | Scheduled releases |
 | GitHub Flow | Low | Any | Daily | Excellent | Continuous deployment |
 | GitLab Flow | Medium | 3-15 | Weekly | Excellent | Issue-driven development |
-| Forking | Medium | Open source | Any | Good | Open source projects |
 
-### 2.2. Centralized Workflow
-**Best for:** Small teams, simple projects, beginners
-
-The simplest workflow where all developers work directly on the main branch.
-
-```mermaid
-graph LR
-    A[Developer 1] --> B[Main Branch]
-    C[Developer 2] --> B
-    D[Developer 3] --> B
-```
-
-#### Implementation:
-```bash
-# Work directly on main
-git clone <repo-url>
-git add .
-git commit -m "Make changes"
-git pull origin main    # Get latest changes
-git push origin main    # Push your changes
-```
-
-#### Pros & Cons:
-✅ **Pros:**
-- Simple and easy to understand
-- No branch management overhead
-- Quick for small changes
-
-❌ **Cons:**
-- High risk of conflicts
-- No feature isolation
-- Difficult to manage releases
-- No code review process
-
-### 2.3. Feature Branch Workflow
-**Best for:** Most development teams, standard projects
-
-Each feature is developed in a dedicated branch, merged via Pull/Merge Requests.
-
-```mermaid
-graph TD
-    A[main] --> B[feature/login]
-    A --> C[feature/payment]
-    A --> D[feature/dashboard]
-    B --> E[Pull Request]
-    C --> F[Pull Request]
-    D --> G[Pull Request]
-    E --> H[main]
-    F --> H
-    G --> H
-```
-
-#### Implementation:
-```bash
-# Create feature branch
-git checkout -b feature/user-authentication
-
-# Work on feature
-git add .
-git commit -m "Add user authentication"
-git push origin feature/user-authentication
-
-# Create Pull Request via UI
-# After review and approval:
-git checkout main
-git pull origin main
-git branch -d feature/user-authentication
-```
-
-#### Pros & Cons:
-✅ **Pros:**
-- Feature isolation
-- Code review process
-- Clean main branch
-- Easy rollback
-
-❌ **Cons:**
-- Requires pull request workflow
-- Can have long-lived branches
-- Merge conflicts possible
-
-### 2.4. GitHub Flow
-**Best for:** Continuous deployment, web applications, agile teams
-
-Simplified workflow optimized for frequent deployments.
+### 2.2. GitHub Flow (Recommended for DevOps)
+**Best for:** Continuous deployment, cloud-native applications
 
 ```mermaid
 graph LR
@@ -209,44 +75,22 @@ graph LR
     E --> F[Production]
 ```
 
-#### GitHub Flow Process:
-1. **Branch:** Create branch from main
-2. **Commit:** Make changes and commit
-3. **Pull Request:** Open PR for discussion
-4. **Review:** Code review and testing
-5. **Merge:** Merge to main
-6. **Deploy:** Immediate deployment
-
 #### Implementation:
 ```bash
 # Create feature branch
-git checkout -b improve-user-interface
+git checkout -b feature/add-monitoring
 
-# Make changes
+# Make changes and commit
 git add .
-git commit -m "Improve user interface design"
-git push origin improve-user-interface
+git commit -m "feat: add Prometheus monitoring"
+git push origin feature/add-monitoring
 
-# Create Pull Request via GitHub UI
-# After merge, automatic deployment triggers
+# Create PR, review, merge via UI
+# Automatic deployment triggers
 ```
 
-#### Pros & Cons:
-✅ **Pros:**
-- Simple and fast
-- Continuous deployment ready
-- Always deployable main
-- Short-lived branches
-
-❌ **Cons:**
-- Requires robust CI/CD
-- No release preparation
-- Less control over releases
-
-### 2.5. Git Flow
-**Best for:** Scheduled releases, complex projects, formal release process
-
-Robust branching model with dedicated branches for different purposes.
+### 2.3. Git Flow (For Scheduled Releases)
+**Best for:** Traditional release cycles, complex projects
 
 ```mermaid
 graph TD
@@ -257,209 +101,52 @@ graph TD
     
     C -->|merge| B
     D -->|merge| A
-    D -->|merge| B
     E -->|merge| A
     E -->|merge| B
-    
-    F[feature/another] --> B
 ```
 
-#### Branch Types:
-- **main/master:** Production-ready code
-- **develop:** Integration branch for features
-- **feature/*:** New feature development
-- **release/*:** Prepare new production releases
-- **hotfix/*:** Critical production fixes
-
-#### Git Flow Commands:
+#### Key Commands:
 ```bash
-# Initialize git flow
-git flow init
-
 # Feature development
-git flow feature start new-feature
-# ... make changes ...
-git flow feature finish new-feature
+git flow feature start monitoring-stack
+git flow feature finish monitoring-stack
 
 # Release management
 git flow release start 1.0.0
-# ... final testing and bug fixes ...
 git flow release finish 1.0.0
 
 # Hotfix
-git flow hotfix start critical-fix
-# ... fix the issue ...
-git flow hotfix finish critical-fix
-```
-
-#### Pros & Cons:
-✅ **Pros:**
-- Clear separation of concerns
-- Supports scheduled releases
-- Parallel development
-- Hotfix capability
-
-❌ **Cons:**
-- Complex branch management
-- Overhead for simple projects
-- Not suitable for continuous deployment
-
-### 2.6. GitLab Flow
-**Best for:** Issue-driven development, environment-based deployments
-
-Combines feature-driven development with environment branches and issue tracking.
-
-```mermaid
-graph LR
-    A[main] --> B[pre-production]
-    B --> C[production]
-    
-    D[feature] --> A
-    E[feature] --> A
-    F[issue/123] --> A
-```
-
-#### GitLab Flow Variants:
-
-**Environment Branches:**
-```bash
-# Feature development
-git checkout -b feature/new-api
-# ... develop feature ...
-git push origin feature/new-api
-# Create Merge Request to main
-
-# Deploy to environments
-git checkout pre-production
-git merge main              # Deploy to staging
-git checkout production  
-git merge pre-production    # Deploy to production
-```
-
-**Issue-driven Development:**
-```bash
-# Create branch from issue
-git checkout -b issue/123-fix-login-bug
-# ... fix the issue ...
-git push origin issue/123-fix-login-bug
-# Create Merge Request that closes issue #123
-```
-
-#### Pros & Cons:
-✅ **Pros:**
-- Issue tracking integration
-- Environment-based deployment
-- Flexible approach
-- Good for CI/CD
-
-❌ **Cons:**
-- Can become complex
-- Requires discipline
-- Multiple merge points
-
-### 2.7. Forking Workflow
-**Best for:** Open source projects, large teams, external contributors
-
-Contributors fork the repository and submit changes via pull requests.
-
-```mermaid
-graph TD
-    A[Original Repository] --> B[Fork 1]
-    A --> C[Fork 2]
-    A --> D[Fork 3]
-    
-    B --> E[Pull Request 1]
-    C --> F[Pull Request 2]
-    D --> G[Pull Request 3]
-    
-    E --> A
-    F --> A
-    G --> A
-```
-
-#### Implementation:
-```bash
-# Fork repository via UI
-# Clone your fork
-git clone https://github.com/yourusername/project.git
-
-# Add upstream remote
-git remote add upstream https://github.com/original/project.git
-
-# Create feature branch
-git checkout -b new-feature
-
-# Make changes and push to your fork
-git push origin new-feature
-
-# Create Pull Request to original repository
-```
-
-### 2.8. Choosing the Right Workflow
-
-#### Decision Matrix:
-
-**Team Size:**
-- **1-3 developers:** Centralized or GitHub Flow
-- **3-10 developers:** Feature Branch or GitHub Flow
-- **10+ developers:** Git Flow or GitLab Flow
-- **Open source:** Forking Workflow
-
-**Release Strategy:**
-- **Continuous deployment:** GitHub Flow
-- **Weekly releases:** Feature Branch or GitLab Flow
-- **Monthly/Quarterly:** Git Flow
-- **Ad-hoc releases:** Centralized
-
-**Project Complexity:**
-- **Simple projects:** Centralized or GitHub Flow
-- **Medium complexity:** Feature Branch or GitHub Flow
-- **Complex projects:** Git Flow or GitLab Flow
-
-#### Migration Path:
-```
-Centralized → Feature Branch → GitHub Flow → GitLab Flow
-                                ↓
-                            Git Flow
+git flow hotfix start security-patch
+git flow hotfix finish security-patch
 ```
 
 ## 3. Git Flow in DevOps
 
-### 3.1. Integration with CI/CD
+### 3.1. CI/CD Integration
 
-#### Branch-based CI/CD Strategy:
+#### Branch-based Deployment Strategy:
 ```yaml
-# .github/workflows/ci-cd.yml
-name: CI/CD Pipeline
+# .github/workflows/deploy.yml
+name: Deploy
 
 on:
   push:
     branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run tests
-        run: npm test
-
   deploy-staging:
-    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Deploy to staging
         run: ./scripts/deploy-staging.sh
 
   deploy-production:
-    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Deploy to production
         run: ./scripts/deploy-production.sh
 ```
@@ -481,352 +168,270 @@ graph TD
 #### Environment Mapping:
 - **feature branches** → **development environment**
 - **develop branch** → **staging environment**  
-- **release branches** → **pre-production environment**
 - **main branch** → **production environment**
 
-### 3.3. Semantic Versioning with Git Tags
+### 3.3. DevOps Repository Structure
 
 ```bash
-# Create annotated tags for releases
+/devops-repo
+│
+├── ci-cd/                    # CI/CD pipelines and templates
+│   ├── github/               # GitHub Actions workflows
+│   ├── gitlab/               # GitLab CI/CD scripts
+│   ├── jenkins/              # Jenkinsfiles or shared libraries
+│   └── templates/            # Shared pipeline templates
+│
+├── infrastructure/          # Infrastructure as Code (IaC)
+│   ├── terraform/            # Terraform configurations
+│   │   ├── modules/          # Reusable modules
+│   │   ├── envs/             # Environment-specific configurations
+│   │   │   ├── dev/
+│   │   │   ├── staging/
+│   │   │   └── prod/
+│   └── ansible/              # Ansible playbooks and roles
+│
+├── environments/            # Logical grouping for different environments
+│   ├── dev/
+|   │   ├── app-01/ 
+|   │   ├── app-02/ 
+|   │   └── app-03/
+│   ├── staging/
+│   └── prod/
+│
+├── config/                  # Configuration files (YAML, JSON, HCL, etc.)
+│   ├── secrets/             # Encrypted or templated secrets (avoid storing plaintext)
+│   ├── app-configs/         # App-specific configurations
+│   └── vault/               # HashiCorp Vault or secret manager config
+│
+├── scripts/                 # Automation scripts (Bash, Python, etc.)
+│   ├── setup/               # Bootstrap or provisioning scripts
+│   ├── cleanup/             # Teardown or GC scripts
+│   └── tools/               # Helper scripts
+│
+├── monitoring/              # Monitoring, logging, and alerting
+│   ├── prometheus/          # Prometheus configurations
+│   ├── grafana/             # Grafana dashboards
+│   └── alertmanager/        # Alertmanager configs
+│
+├── docker/                  # Dockerfiles and docker-compose setups
+│   ├── services/            # Dockerfiles for services/microservices
+│   └── base-images/         # Custom base images
+│
+├── docs/                    # Documentation (Markdown, architecture diagrams, etc.)
+│   ├── architecture/
+│   └── runbooks/
+│
+└── README.md                # Overview of the repository
+```
+
+### 3.4. Semantic Versioning & Tagging
+
+```bash
+# Create release tags
 git tag -a v1.0.0 -m "Release version 1.0.0"
 git push origin v1.0.0
 
-# List tags
-git tag -l
-
-# Checkout specific version
-git checkout v1.0.0
-
-# Create release from tag
-git flow release start $(git describe --tags --abbrev=0)
+# Conventional commits for automation
+git commit -m "feat: add user authentication"
+git commit -m "fix: resolve login issue"
+git commit -m "docs: update deployment guide"
 ```
 
-### 3.4. Automated Release Management
+## 4. DevOps Best Practices
+
+### 4.1. Commit Message Standards
 
 #### Conventional Commits:
-```bash
-# Feature commits
-git commit -m "feat: add user authentication"
-
-# Bug fix commits  
-git commit -m "fix: resolve login issue"
-
-# Breaking changes
-git commit -m "feat!: change API structure"
-
-# Documentation
-git commit -m "docs: update README"
-```
-
-#### Automated Changelog Generation:
-```json
-{
-  "scripts": {
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "release": "standard-version"
-  }
-}
-```
-
-### 3.5. Multi-Repository Management
-
-#### Git Submodules:
-```bash
-# Add submodule
-git submodule add https://github.com/user/library.git libs/library
-
-# Initialize submodules
-git submodule init
-git submodule update
-
-# Update submodules
-git submodule update --remote
-```
-
-#### Monorepo with Git:
-```bash
-# Directory structure
-project/
-├── services/
-│   ├── api/
-│   ├── frontend/
-│   └── worker/
-├── shared/
-│   ├── utils/
-│   └── types/
-└── deploy/
-```
-
-## 4. Best Practices
-
-### 4.1. Commit Message Guidelines
-
-#### Format:
 ```
 <type>(<scope>): <subject>
 
-<body>
-
-<footer>
-```
-
-#### Examples:
-```bash
-feat(auth): add JWT token validation
-
-Implement JWT token validation middleware
-- Add token verification logic
-- Handle expired tokens
-- Add error handling
-
-Closes #123
+feat(k8s): add monitoring namespace
+fix(terraform): resolve VPC CIDR conflict
+docs(runbook): update deployment procedure
+chore(ci): update workflow dependencies
 ```
 
 ### 4.2. Branch Naming Conventions
 
 ```bash
 # Feature branches
-feature/user-authentication
-feature/payment-integration
-feat/JIRA-123-user-profile
+feature/add-monitoring
+feature/implement-autoscaling
+feat/JIRA-123-user-auth
 
-# Bug fix branches
-bugfix/login-error
-fix/payment-validation
+# Environment-specific
+env/staging/update-configs
+env/prod/security-patch
+
+# Infrastructure
+infra/upgrade-kubernetes
+infra/add-vpc-endpoints
+
+# Hotfixes
 hotfix/critical-security-patch
-
-# Release branches
-release/v1.2.0
-release/2023-q1
-
-# Environment branches
-develop
-staging
-main/master
+hotfix/database-connection-fix
 ```
 
-### 4.3. Code Review Process
+### 4.3. Security Best Practices
+
+```bash
+# .gitignore for DevOps repos
+*.tfstate
+*.tfstate.backup
+.terraform/
+*.auto.tfvars
+secrets.yml
+.env.local
+kubeconfig
+*.pem
+*.key
+
+# Signed commits
+git config --global commit.gpgsign true
+git commit -S -m "feat: add secure deployment"
+```
+
+### 4.4. Code Review Process
 
 #### Pull Request Template:
 ```markdown
-## Description
-Brief description of changes
+## Infrastructure Change Description
+Brief description of infrastructure/deployment changes
 
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Breaking change
-- [ ] Documentation update
+## Environment Impact
+- [ ] Development
+- [ ] Staging  
+- [ ] Production
+
+## Validation Checklist
+- [ ] Terraform plan reviewed
+- [ ] Security scan passed
+- [ ] Documentation updated
+- [ ] Rollback plan documented
 
 ## Testing
-- [ ] Unit tests pass
-- [ ] Integration tests pass
-- [ ] Manual testing completed
-
-## Checklist
-- [ ] Code follows style guidelines
-- [ ] Self-review completed
-- [ ] Documentation updated
+- [ ] Infrastructure tests pass
+- [ ] Deployment tested in staging
+- [ ] Monitoring validates changes
 ```
 
-### 4.4. Security Best Practices
+### 4.5. Multi-Environment Strategy
 
 ```bash
-# Use SSH keys
-ssh-keygen -t ed25519 -C "your_email@example.com"
-
-# Configure Git with signing
-git config --global user.signingkey <key-id>
-git config --global commit.gpgsign true
-
-# Signed commits
-git commit -S -m "Signed commit message"
+# Environment configuration
+environments/
+├── dev/
+│   ├── terraform.tfvars
+│   └── .env
+├── staging/
+│   ├── terraform.tfvars
+│   └── .env
+└── production/
+    ├── terraform.tfvars
+    └── .env
 ```
 
-## 5. Advanced Git Techniques
+## 5. Troubleshooting
 
-### 5.1. Interactive Rebase
+### 5.1. Common DevOps Git Issues
 
+#### Merge Conflicts in Infrastructure Files:
 ```bash
-# Interactive rebase last 3 commits
-git rebase -i HEAD~3
+# View conflicts
+git status
 
-# Rebase onto another branch
-git rebase -i develop
+# Resolve Terraform conflicts
+git checkout --theirs terraform.tfstate
+git add terraform.tfstate
 
-# Common rebase actions:
-# pick - use commit as is
-# reword - edit commit message
-# edit - stop for amending
-# squash - combine with previous commit
-# drop - remove commit
+# Resolve and commit
+git commit -m "resolve: merge conflict in terraform state"
 ```
 
-### 5.2. Git Hooks for DevOps
+#### Rollback Deployments:
+```bash
+# Revert last commit
+git revert HEAD
+git push origin main
+
+# Rollback to specific version
+git checkout v1.0.0
+git checkout -b hotfix/rollback-v1.0.0
+git push origin hotfix/rollback-v1.0.0
+```
+
+#### Recovery Strategies:
+```bash
+# Recover deleted branch
+git reflog
+git checkout -b recovered-branch <commit-hash>
+
+# Find lost commits
+git fsck --lost-found
+```
+
+### 5.2. Git Hooks for DevOps Automation
 
 #### Pre-commit Hook:
 ```bash
 #!/bin/sh
 # .git/hooks/pre-commit
 
-# Run tests before commit
-npm test
-if [ $? -ne 0 ]; then
-    echo "Tests failed, commit aborted"
-    exit 1
-fi
+# Terraform format check
+terraform fmt -check=true -diff=true
 
-# Check code formatting
-npm run lint
-if [ $? -ne 0 ]; then
-    echo "Linting failed, commit aborted"
-    exit 1
-fi
+# Validate Kubernetes manifests
+kubectl apply --dry-run=client -f k8s/
+
+# Security scan
+trivy fs .
+
+echo "✅ Pre-commit checks passed"
 ```
 
-#### Post-receive Hook (Server-side):
-```bash
-#!/bin/sh
-# Trigger deployment on push to main
-
-while read oldrev newrev refname; do
-    if [ "$refname" = "refs/heads/main" ]; then
-        echo "Deploying to production..."
-        /path/to/deploy-script.sh
-    fi
-done
-```
-
-### 5.3. Git Bisect for Debugging
+### 5.3. Performance Optimization
 
 ```bash
-# Start bisecting
-git bisect start
-
-# Mark current commit as bad
-git bisect bad
-
-# Mark known good commit
-git bisect good v1.0.0
-
-# Git will check out commits for testing
-# Mark each commit as good or bad
-git bisect good    # Current commit is good
-git bisect bad     # Current commit is bad
-
-# Reset after finding the problematic commit
-git bisect reset
-```
-
-### 5.4. Cherry-picking
-
-```bash
-# Apply specific commit to current branch
-git cherry-pick <commit-hash>
-
-# Cherry-pick range of commits
-git cherry-pick A..B
-
-# Cherry-pick without committing
-git cherry-pick -n <commit-hash>
-```
-
-## 6. Troubleshooting
-
-### 6.1. Common Issues and Solutions
-
-#### Merge Conflicts:
-```bash
-# View conflict status
-git status
-
-# Resolve conflicts manually in files, then:
-git add <resolved-file>
-git commit
-
-# Abort merge if needed
-git merge --abort
-```
-
-#### Undoing Changes:
-```bash
-# Undo last commit (keep changes)
-git reset --soft HEAD~1
-
-# Undo last commit (discard changes)
-git reset --hard HEAD~1
-
-# Undo specific file changes
-git checkout -- <file-name>
-
-# Revert a commit (create new commit)
-git revert <commit-hash>
-```
-
-#### Fixing Author Information:
-```bash
-# Change author of last commit
-git commit --amend --author="New Author <new@email.com>"
-
-# Change author for multiple commits
-git rebase -i HEAD~3
-# Change 'pick' to 'edit' for commits to modify
-# For each commit:
-git commit --amend --author="New Author <new@email.com>"
-git rebase --continue
-```
-
-### 6.2. Recovery Strategies
-
-#### Recover Deleted Branch:
-```bash
-# Find the commit hash
-git reflog
-
-# Recreate branch
-git checkout -b recovered-branch <commit-hash>
-```
-
-#### Recover Lost Commits:
-```bash
-# View all references
-git reflog
-
-# Checkout lost commit
-git checkout <commit-hash>
-
-# Create branch from lost commit
-git checkout -b recovery-branch
-```
-
-### 6.3. Performance Optimization
-
-```bash
-# Clean up repository
+# Clean repository
 git gc --aggressive
 
-# Remove untracked files
-git clean -fd
-
-# Optimize repository
-git repack -ad
-
-# Check repository size
-git count-objects -vH
+# Optimize for large repos
+git config core.preloadindex true
+git config core.fscache true
+git config gc.auto 256
 ```
 
 ---
 
-## Conclusion
+## Quick Reference
 
-Git is fundamental to modern DevOps practices, enabling version control, collaboration, and automated deployment workflows. Understanding different Git flows and their applications helps teams choose the right strategy for their development and deployment needs.
+### Essential DevOps Git Commands:
+```bash
+# Daily workflow
+git pull origin main
+git checkout -b feature/new-feature
+git add . && git commit -m "feat: description"
+git push origin feature/new-feature
 
-Key takeaways:
-- Choose the right Git flow for your team size and deployment frequency
-- Integrate Git workflows with CI/CD pipelines
-- Follow naming conventions and commit message standards
-- Use branching strategies that match your environment structure
-- Implement proper code review processes
-- Leverage Git hooks for automation and quality gates
+# Release management
+git tag -a v1.0.0 -m "Release v1.0.0"
+git push origin v1.0.0
 
-The choice between Git Flow, GitHub Flow, or custom workflows depends on factors like team size, release frequency, and deployment strategy. In DevOps environments, simpler flows like GitHub Flow often work better with continuous deployment practices. 
+# Hotfix workflow
+git checkout -b hotfix/critical-fix main
+git add . && git commit -m "fix: critical issue"
+git push origin hotfix/critical-fix
+```
+
+### Environment Deployment:
+```bash
+# Deploy to staging
+git push origin develop
+
+# Deploy to production
+git checkout main
+git merge develop
+git push origin main
+```
+
+This guide focuses on Git practices essential for DevOps teams, emphasizing automation, infrastructure management, and deployment workflows. 
