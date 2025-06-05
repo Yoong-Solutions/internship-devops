@@ -150,21 +150,17 @@ project-root/
 ├── .github/workflows/           # GitHub Actions workflows
 │   ├── ci.yml
 │   └── cd.yml
-├── docker/                      # Docker configurations
+├── compomnet-name-01/                      # Docker configurations
 │   ├── Dockerfile
 │   └── docker-compose.yml
-├── k8s/                        # Kubernetes manifests
-│   ├── deployment.yml
-│   └── service.yml
+|   |── Configuration.yml
+|   |__ .env
 ├── terraform/                   # Infrastructure as Code
 │   ├── main.tf
 │   └── variables.tf
 ├── scripts/                     # Automation scripts
 │   ├── deploy.sh
 │   └── rollback.sh
-└── monitoring/                  # Monitoring configurations
-    ├── prometheus.yml
-    └── grafana-dashboard.json
 ```
 
 #### Key Files:
