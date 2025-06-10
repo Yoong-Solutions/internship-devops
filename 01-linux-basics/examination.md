@@ -9,6 +9,13 @@ Create a script that:
 - Sends email notifications with system status
 - Logs all activities
 
+```mermaid
+flowchart TD
+    A[Script Monitor] 
+    C[Script create job daily] -->  B[Script Backup]
+    E[Script create job each 4 hours] --> D[Script Send email]
+```
+
 ### Exercise 2: User Management System
 Implement a user management system that:
 - Creates new user accounts with proper permissions
