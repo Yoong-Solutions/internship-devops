@@ -104,6 +104,7 @@ graph TD
     E -->|merge| A
     E -->|merge| B
 ```
+ref: https://blog.nashtechglobal.com/introduction-to-git-flow/
 
 #### Key Commands:
 ```bash
